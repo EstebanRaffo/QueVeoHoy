@@ -1,0 +1,5 @@
+Paso 2: Insertá la información de los géneros en tu base de datos.
+
+Una vez que modifiques el modelo de datos, ejecutá el script script-paso-2-generos.sql. Este script va a insertar los 
+géneros en la tabla que creaste y actualizar la tabla pelicula, agregando en el campo genero_id el id del género de la 
+película.
