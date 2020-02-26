@@ -43,6 +43,20 @@ function buscarPeliculas(req, res) {
         //     res.send(JSON.stringify(respuesta));
         // });
 
+        // Creación del objeto ‘persona’
+        // var persona = {};
+
+        // // Asignación de propiedades al objeto
+        // persona.nombre = “Jorge”;
+        // persona.edad = 27;
+
+        // // Propiedad tipo array dentro del objeto
+        // persona.deportesFavoritos = [
+        //     “Futbol”,
+        //     “Voley”,
+        //     “Natacion”
+        // ];
+
         var respuesta = {
             'peliculas': resultado
         };
