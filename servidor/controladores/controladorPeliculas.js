@@ -7,31 +7,31 @@ function buscarPeliculas(req, res) {
     // var query = $.param(query_params);
 // Request URL: http://localhost:8080/peliculas?pagina=1&titulo=harry&genero=1&anio=2000&cantidad=52&columna_orden=titulo&tipo_orden=ASC
     
-    var columna_orden = req.query.columna_orden;
-    var tipo_orden = req.query.tipo_orden;
-    // var pagina = req.query.pagina;
-    // var cantidad = req.query.cantidad;
-
     var titulo = req.query.titulo;
     var anio = req.query.anio;
     var genero = req.query.genero;
     
+    var columna_orden = req.query.columna_orden;
+    var tipo_orden = req.query.tipo_orden;
+    var pagina = req.query.pagina;
+    var cantidadPorPagina = req.query.cantidad;
+    
 
     if(titulo && anio && genero){
-        var sql = "select * from pelicula where titulo like '" + '%' + titulo + '%' + "'" + ' and ' + ' anio = ' + anio + ' and ' + 'genero_id = ' + genero + ' order by ' + columna_orden + ' ' + tipo_orden;
+        var sql = "select * from pelicula where titulo like '" + '%' + titulo + '%' + "'" + ' and ' + 'anio = ' + anio + ' and ' + 'genero_id = ' + genero + ' order by ' + columna_orden + ' ' + tipo_orden;
     }
     else{
         if(titulo && anio || titulo && genero || anio && genero){
             if(titulo && anio){
-                var sql = "select * from pelicula where titulo like '" + '%' + titulo + '%' + "'" + ' and ' + ' anio = ' + anio + ' order by ' + columna_orden + ' ' + tipo_orden;
+                var sql = "select * from pelicula where titulo like '" + '%' + titulo + '%' + "'" + ' and ' + 'anio = ' + anio + ' order by ' + columna_orden + ' ' + tipo_orden;
             }
             
             if(titulo && genero){
-                var sql = "select * from pelicula where titulo like '" + '%' + titulo + '%' + "'" + ' and ' + ' genero_id = ' + genero + ' order by ' + columna_orden + ' ' + tipo_orden;
+                var sql = "select * from pelicula where titulo like '" + '%' + titulo + '%' + "'" + ' and ' + 'genero_id = ' + genero + ' order by ' + columna_orden + ' ' + tipo_orden;
             }
     
             if(anio && genero){
-                var sql = "select * from pelicula where anio = " + anio + " and " + ' genero_id = ' + genero + ' order by ' + columna_orden + ' ' + tipo_orden;
+                var sql = "select * from pelicula where anio = " + anio + " and " + 'genero_id = ' + genero + ' order by ' + columna_orden + ' ' + tipo_orden;
             }
         }
         else{
@@ -47,7 +47,8 @@ function buscarPeliculas(req, res) {
                 }
             }
             else{
-                var sql = "select * from pelicula order by " + columna_orden + ' ' + tipo_orden;
+                // var sql = "select * from pelicula order by " + columna_orden + ' ' + tipo_orden + ' limit ' + (pagina * cantidadPorPagina - cantidadPorPagina) + ',' + cantidadPorPagina;
+                var sql = "select * from pelicula order by " + columna_orden + ' ' + tipo_orden + ' limit ' + cantidadPorPagina;
             }
         }
     }
@@ -59,22 +60,26 @@ function buscarPeliculas(req, res) {
             console.log("Hubo un error en la consulta", error.message);
             return res.status(404).send("Hubo un error en la consulta");
         }
+    
+        var respuesta = {
+            'peliculas': resultado
+        };
+
+        var sqlCount = "select COUNT(*) from pelicula";
+
+        con.query(sqlCount, function(error, resultado) {
+            if (error) {
+                console.log("Hubo un error al calcular la cantidad", error.message);
+                return res.status(404).send("Hubo un error al calcular la cantidad");
+            }  
+
+            respuesta.total = resultado[0];
+
+            console.log(respuesta)
+
+            res.send(JSON.stringify(respuesta));
+        });
         
-        // var sqlCount = "select COUNT(*) from pelicula";
-
-        // con.query(sqlCount, function(error, resultado) {
-        //     if (error) {
-        //         console.log("Hubo un error al calcular la cantidad", error.message);
-        //         return res.status(404).send("Hubo un error al calcular la cantidad");
-        //     }  
-            
-        //     var respuesta = {
-        //         'total': resultado[0]
-        //     };
-
-        //     res.send(JSON.stringify(respuesta));
-        // });
-
         // Creación del objeto ‘persona’
         // var persona = {};
 
@@ -88,12 +93,6 @@ function buscarPeliculas(req, res) {
         //     “Voley”,
         //     “Natacion”
         // ];
-
-        var respuesta = {
-            'peliculas': resultado
-        };
-
-        res.send(JSON.stringify(respuesta));
     });
     
 }
