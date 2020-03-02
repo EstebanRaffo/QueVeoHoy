@@ -65,18 +65,16 @@ function buscarPeliculas(req, res) {
             'peliculas': resultado
         };
 
-        var sqlCount = "select COUNT(*) from pelicula";
+        var sqlCount = "select COUNT(*) as cantidad from pelicula";
 
         con.query(sqlCount, function(error, resultado) {
             if (error) {
                 console.log("Hubo un error al calcular la cantidad", error.message);
                 return res.status(404).send("Hubo un error al calcular la cantidad");
             }  
-
-            respuesta.total = resultado[0];
-
-            console.log(respuesta)
-
+            
+            respuesta.total = resultado[0].cantidad;
+            
             res.send(JSON.stringify(respuesta));
         });
         

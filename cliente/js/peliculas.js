@@ -143,7 +143,9 @@ function ControladorPeliculas() {
             $(".boton-pagina").click(function() {
                 //cada boton tiene como funcionalidad buscarPeliculas(). A esta funcion se le pasa como parametro
                 //el atributo "numero-pagina".
-                self.buscarPeliculas($(this).attr("numero-pagina"));
+                console.log(+($(this).attr("numero-pagina")))
+                console.log(parseInt($(this).attr("numero-pagina")))
+                self.buscarPeliculas(parseInt($(this).attr("numero-pagina")));
                 scroll(0, 0);
             });
         }
