@@ -4,9 +4,10 @@ select * from pelicula order by id asc limit 0,10;
 select * from pelicula order by id asc limit 10,10;
 select * from pelicula order by id asc limit 20,10;
 
-select * from pelicula order by titulo asc limit 0,52; 	-- pagina 1 (pagina * cantidadPorPagina - cantidadPorPagina)
-select * from pelicula order by titulo asc limit 52,52; -- pagina 2 (pagina * cantidadPorPagina - cantidadPorPagina)
-select * from pelicula order by titulo asc limit 104,52; -- pagina 3 (pagina * cantidadPorPagina - cantidadPorPagina)
+select * from pelicula order by titulo asc limit 0,52; 	
+select * from pelicula order by titulo asc limit 52,52; 
+select * from pelicula order by titulo asc limit 104,52; 
+select * from pelicula order by titulo asc limit 728,52;
 
 SELECT count(*) as Cantidad from pelicula;
 select * from pelicula order by titulo asc limit 52;

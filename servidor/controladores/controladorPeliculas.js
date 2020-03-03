@@ -1,10 +1,6 @@
 var con = require('../lib/conexionbd');
 
 function buscarPeliculas(req, res) {
-    // var orden_array = orden.split("-");
-    // query_params.columna_orden = orden_array[0];
-    // query_params.tipo_orden = orden_array[1];
-    // var query = $.param(query_params);
 // Request URL: http://localhost:8080/peliculas?pagina=1&titulo=harry&genero=1&anio=2000&cantidad=52&columna_orden=titulo&tipo_orden=ASC
     
     var titulo = req.query.titulo;
@@ -47,8 +43,7 @@ function buscarPeliculas(req, res) {
                 }
             }
             else{
-                // var sql = "select * from pelicula order by " + columna_orden + ' ' + tipo_orden + ' limit ' + (pagina * cantidadPorPagina - cantidadPorPagina) + ',' + cantidadPorPagina;
-                var sql = "select * from pelicula order by " + columna_orden + ' ' + tipo_orden + ' limit ' + cantidadPorPagina;
+                var sql = "select * from pelicula order by " + columna_orden + ' ' + tipo_orden + ' limit ' + cantidadPorPagina * (pagina - 1) + ',' + cantidadPorPagina;
             }
         }
     }
@@ -77,27 +72,11 @@ function buscarPeliculas(req, res) {
             
             res.send(JSON.stringify(respuesta));
         });
-        
-        // Creación del objeto ‘persona’
-        // var persona = {};
-
-        // // Asignación de propiedades al objeto
-        // persona.nombre = “Jorge”;
-        // persona.edad = 27;
-
-        // // Propiedad tipo array dentro del objeto
-        // persona.deportesFavoritos = [
-        //     “Futbol”,
-        //     “Voley”,
-        //     “Natacion”
-        // ];
-    });
-    
+    });   
 }
 
 
 function buscarGeneros(req, res) {
-    
     var sql = "select * from genero";
     
     con.query(sql, function(error, resultado, fields) {
