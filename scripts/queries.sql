@@ -35,7 +35,7 @@ select * from pelicula where anio = 2006 and genero_id = 1 order by titulo asc;
 select * from pelicula where titulo like '%men%' and anio = 2006 order by titulo asc;
 select * from pelicula where titulo like '%men%' and genero_id = 1 and anio = 2006 order by titulo asc;
 
-SELECT P.*, G.nombre, A.nombre FROM pelicula P 
+SELECT P.*, G.nombre as genero, A.nombre as actores FROM pelicula P 
 INNER JOIN genero G ON P.genero_id = G.id
 INNER JOIN actor_pelicula AP ON P.id = AP.pelicula_id
 INNER JOIN actor A ON AP.actor_id = A.id
