@@ -22,7 +22,7 @@ function ControladorRecomendaciones() {
 
         //al clickear cada boton se debe guardar la informacion correspondiente que luego va a ser enviada para obtener la recomendacion
         $(".paso-1 .boton-estreno").click(function() {
-            self.anio_inicio = 2005;
+            self.anio_inicio = 2006;
             self.anio_fin = 2020;
             self.cargarSegundaPregunta();
         });

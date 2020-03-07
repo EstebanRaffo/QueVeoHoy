@@ -35,9 +35,40 @@ select * from pelicula where anio = 2006 and genero_id = 1 order by titulo asc;
 select * from pelicula where titulo like '%men%' and anio = 2006 order by titulo asc;
 select * from pelicula where titulo like '%men%' and genero_id = 1 and anio = 2006 order by titulo asc;
 
+-- Informacion de pelicula
 SELECT P.*, G.nombre as genero, A.nombre as actores FROM pelicula P 
 INNER JOIN genero G ON P.genero_id = G.id
 INNER JOIN actor_pelicula AP ON P.id = AP.pelicula_id
 INNER JOIN actor A ON AP.actor_id = A.id
-WHERE P.id = 1 
+WHERE P.id = 229; 
 
+-- Recomendaciones
+
+-- Estreno
+select * from pelicula where anio between 2006 and 2020 order by anio desc;
+-- Estreno y Genero
+select P.*, G.nombre as genero from pelicula P
+inner join genero G on P.genero_id = G.id
+where P.anio between 2005 and 2020 and G.nombre = 'Action' order by P.anio desc;
+
+-- Clásico
+select * from pelicula where anio between 1900 and 2005 order by anio desc; 
+-- Clasico y Genero
+select P.*, G.nombre as genero from pelicula P
+inner join genero G on P.genero_id = G.id
+where P.anio between 1900 and 2005 and G.nombre = 'Action' order by P.anio desc;
+
+-- Puntuacion
+select * from pelicula where puntuacion = 7;
+-- Puntuacion y Genero
+select P.*, G.nombre as genero from pelicula P 
+inner join genero G on P.genero_id = G.id
+where P.puntuacion = 5 and G.nombre = 'Drama'; 
+
+-- Cualquiera
+select * from pelicula;
+
+-- Cualquiera y Genero
+select P.*, G.nombre as genero from pelicula P 
+inner join genero G on P.genero_id = G.id
+where G.nombre = 'Drama' order by P.anio desc;  

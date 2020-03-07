@@ -2,18 +2,46 @@ var con = require('../lib/conexionbd');
 
 function recomendarPeliculas(req, res) {
     
-    // query_params.genero = this.genero;
-    // query_params.anio_inicio = this.anio_inicio;
-    // query_params.anio_fin = this.anio_fin;
-    // query_params.puntuacion = this.puntuacion;
+    // http://localhost:8080/peliculas/recomendacion?anio_inicio=2005&anio_fin=2020&puntuacion=7
     var genero = req.query.genero;
     var anio_inicio = req.query.anio_inicio;
     var anio_fin = req.query.anio_fin;
     var puntuacion = req.query.puntuacion;
 
-    var sql = "select * from pelicula where id = " + id;
+
+    if(anio_inicio && anio_fin || puntuacion){
+        if(anio_inicio && anio_fin && genero){
+            var sql = "select P.*, G.nombre as genero from pelicula P " + 
+                    "inner join genero G on P.genero_id = G.id " + 
+                    "where P.anio between " + anio_inicio + " and " + anio_fin + " and G.nombre = '" + genero + "' order by P.anio desc";
+        }else{
+            if(anio_inicio && anio_fin){
+                var sql = "select * from pelicula where anio between " + anio_inicio + " and " + anio_fin + " order by anio desc";
+            }
+        }
     
+        if(puntuacion && genero){
+            var sql = "select P.*, G.nombre as genero from pelicula P " + 
+                    "inner join genero G on P.genero_id = G.id " +
+                    "where P.puntuacion = " + puntuacion + " and " + "G.nombre = '" + genero + "'";
+        }else{
+            if(puntuacion){
+                var sql = "select * from pelicula where puntuacion = " + puntuacion;
+            }
+        }
+    }else{
+        if(genero){
+            var sql = "select P.*, G.nombre as genero from pelicula P " + 
+                    "inner join genero G on P.genero_id = G.id " +
+                    "where G.nombre = '" + genero + "' order by P.anio desc";
+        }else{
+            var sql = "select * from pelicula";
+        }
+    }
+
+
     con.query(sql, function(error, resultado, fields) {
+ 
         if (error) {
             console.log("Hubo un error en la consulta", error.message);
             return res.status(404).send("Hubo un error en la consulta");
@@ -22,19 +50,13 @@ function recomendarPeliculas(req, res) {
             console.log("No se encontro ningún nombre con ese id");
             return res.status(404).send("No se encontro ninguna pelicula con ese id");
         } else {
-            var respuesta = {
-                'peliculas': resultado[0]
-            };
 
-            // SELECT P.*, G.nombre as genero, A.nombre as actores FROM pelicula P 
-            // INNER JOIN genero G ON P.genero_id = G.id
-            // INNER JOIN actor_pelicula AP ON P.id = AP.pelicula_id
-            // INNER JOIN actor A ON AP.actor_id = A.id
-            // WHERE P.id = 1 
+            var respuesta = {
+                'peliculas': resultado
+            };
 
             res.send(JSON.stringify(respuesta));
         }
-
     });
 }
 

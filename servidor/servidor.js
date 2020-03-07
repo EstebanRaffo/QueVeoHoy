@@ -4,6 +4,7 @@ var bodyParser = require('body-parser');
 var cors = require('cors');
 var controladorPeliculas = require('./controladores/controladorPeliculas');
 var controladorInformacionDePelicula = require('./controladores/controladorInformacionDePelicula');
+var controladorRecomendaciones = require('./controladores/controladorRecomendaciones')
 
 var app = express();
 
@@ -18,6 +19,7 @@ app.use(bodyParser.json());
 app.get('/peliculas', controladorPeliculas.buscarPeliculas);
 app.get('/generos', controladorPeliculas.buscarGeneros);
 app.get('/peliculas/:id', controladorInformacionDePelicula.buscarPelicula);
+app.get('/peliculas/recomendacion', controladorRecomendaciones.recomendarPeliculas);
 
 //seteamos el puerto en el cual va a escuchar los pedidos la aplicación
 var puerto = '8080';
