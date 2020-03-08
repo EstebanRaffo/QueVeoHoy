@@ -49,7 +49,7 @@ function ControladorRecomendaciones() {
         });
 
         $(".paso-2-links .pregunta").click(function() {
-            self.genero = $(this).attr("genero");
+            self.genero = $(this).attr("genero");      // si eligió "cualquiera" -> genero = ''
             self.pedirRecomendacion();
         });
 

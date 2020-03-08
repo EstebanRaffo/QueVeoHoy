@@ -1,13 +1,12 @@
 var con = require('../lib/conexionbd');
 
 function recomendarPeliculas(req, res) {
-    
+
     // http://localhost:8080/peliculas/recomendacion?anio_inicio=2005&anio_fin=2020&puntuacion=7
     var genero = req.query.genero;
     var anio_inicio = req.query.anio_inicio;
     var anio_fin = req.query.anio_fin;
     var puntuacion = req.query.puntuacion;
-
 
     if(anio_inicio && anio_fin || puntuacion){
         if(anio_inicio && anio_fin && genero){
@@ -35,13 +34,14 @@ function recomendarPeliculas(req, res) {
                     "inner join genero G on P.genero_id = G.id " +
                     "where G.nombre = '" + genero + "' order by P.anio desc";
         }else{
-            var sql = "select * from pelicula";
+            var sql = "select * from pelicula order by anio desc";
         }
     }
 
+    // var sql = "select * from pelicula order by anio desc";
 
     con.query(sql, function(error, resultado, fields) {
- 
+        
         if (error) {
             console.log("Hubo un error en la consulta", error.message);
             return res.status(404).send("Hubo un error en la consulta");

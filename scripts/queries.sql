@@ -44,31 +44,31 @@ WHERE P.id = 229;
 
 -- Recomendaciones
 
--- Estreno
+-- Estreno y Cualquiera
 select * from pelicula where anio between 2006 and 2020 order by anio desc;
 -- Estreno y Genero
 select P.*, G.nombre as genero from pelicula P
 inner join genero G on P.genero_id = G.id
 where P.anio between 2005 and 2020 and G.nombre = 'Action' order by P.anio desc;
 
--- Clásico
+-- Clásico y Cualquiera
 select * from pelicula where anio between 1900 and 2005 order by anio desc; 
 -- Clasico y Genero
 select P.*, G.nombre as genero from pelicula P
 inner join genero G on P.genero_id = G.id
 where P.anio between 1900 and 2005 and G.nombre = 'Action' order by P.anio desc;
 
--- Puntuacion
+-- Puntuacion y Cualquiera
 select * from pelicula where puntuacion = 7;
 -- Puntuacion y Genero
 select P.*, G.nombre as genero from pelicula P 
 inner join genero G on P.genero_id = G.id
 where P.puntuacion = 5 and G.nombre = 'Drama'; 
 
--- Cualquiera
-select * from pelicula;
-
 -- Cualquiera y Genero
 select P.*, G.nombre as genero from pelicula P 
 inner join genero G on P.genero_id = G.id
 where G.nombre = 'Drama' order by P.anio desc;  
+
+-- Cualquiera y Cualquiera
+select * from pelicula;

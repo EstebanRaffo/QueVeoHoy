@@ -109,9 +109,9 @@ CREATE TABLE `pelicula` (
   `puntuacion` int NOT NULL,
   `poster` varchar(300) NOT NULL,
   `trama` varchar(700) NOT NULL,
-  `genero_id` int DEFAULT NULL,
+  `genero_id` int NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `genero_id` (`genero_id`),
+  KEY `pelicula_ibfk_1` (`genero_id`),
   CONSTRAINT `pelicula_ibfk_1` FOREIGN KEY (`genero_id`) REFERENCES `genero` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=744 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -135,4 +135,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-03-05 18:51:35
+-- Dump completed on 2020-03-08 14:27:37
