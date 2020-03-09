@@ -45,11 +45,11 @@ WHERE P.id = 229;
 -- Recomendaciones
 
 -- Estreno y Cualquiera
-select * from pelicula where anio between 2006 and 2020 order by anio desc;
+select * from pelicula where anio between 2006 and 2020 order by titulo;
 -- Estreno y Genero
 select P.*, G.nombre as genero from pelicula P
 inner join genero G on P.genero_id = G.id
-where P.anio between 2005 and 2020 and G.nombre = 'Action' order by P.anio desc;
+where P.anio between 2005 and 2020 and G.nombre = 'Biography' order by titulo;
 
 -- Clásico y Cualquiera
 select * from pelicula where anio between 1900 and 2005 order by anio desc; 
