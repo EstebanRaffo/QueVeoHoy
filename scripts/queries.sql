@@ -52,18 +52,18 @@ inner join genero G on P.genero_id = G.id
 where P.anio between 2005 and 2020 and G.nombre = 'Biography' order by titulo;
 
 -- Clásico y Cualquiera
-select * from pelicula where anio between 1900 and 2005 order by anio desc; 
+select * from pelicula where anio between 1900 and 2005 order by titulo; 
 -- Clasico y Genero
 select P.*, G.nombre as genero from pelicula P
 inner join genero G on P.genero_id = G.id
-where P.anio between 1900 and 2005 and G.nombre = 'Action' order by P.anio desc;
+where P.anio between 1900 and 2005 and G.nombre = 'Biography' order by titulo;
 
 -- Puntuacion y Cualquiera
 select * from pelicula where puntuacion = 7;
 -- Puntuacion y Genero
 select P.*, G.nombre as genero from pelicula P 
 inner join genero G on P.genero_id = G.id
-where P.puntuacion = 5 and G.nombre = 'Drama'; 
+where P.puntuacion = 7 and G.nombre = 'Adventure' order by titulo; 
 
 -- Cualquiera y Genero
 select P.*, G.nombre as genero from pelicula P 
