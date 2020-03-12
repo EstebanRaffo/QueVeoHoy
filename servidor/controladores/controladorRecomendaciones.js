@@ -34,7 +34,8 @@ function recomendarPeliculas(req, res) {
                     "inner join genero G on P.genero_id = G.id " +
                     "where G.nombre = '" + genero + "' order by P.anio desc";
         }else{
-            var sql = "select * from pelicula order by anio desc";
+            var sql = "select P.*, G.nombre as genero from pelicula P " + 
+                    "inner join genero G on P.genero_id = G.id order by P.titulo";
         }
     }
 

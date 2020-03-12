@@ -11,35 +11,35 @@ function buscarPeliculas(req, res) {
     var tipo_orden = req.query.tipo_orden;
     var pagina = req.query.pagina;
     var cantidadPorPagina = req.query.cantidad;
-    
+    console.log(cantidadPorPagina)
 
     if(titulo && anio && genero){
-        var sql = "select * from pelicula where titulo like '" + '%' + titulo + '%' + "'" + ' and ' + 'anio = ' + anio + ' and ' + 'genero_id = ' + genero + ' order by ' + columna_orden + ' ' + tipo_orden;
+        var sql = "select * from pelicula where titulo like '" + '%' + titulo + '%' + "'" + ' and ' + 'anio = ' + anio + ' and ' + 'genero_id = ' + genero + ' order by ' + columna_orden + ' ' + tipo_orden + ' limit ' + cantidadPorPagina * (pagina - 1) + ',' + cantidadPorPagina;
     }
     else{
         if(titulo && anio || titulo && genero || anio && genero){
             if(titulo && anio){
-                var sql = "select * from pelicula where titulo like '" + '%' + titulo + '%' + "'" + ' and ' + 'anio = ' + anio + ' order by ' + columna_orden + ' ' + tipo_orden;
+                var sql = "select * from pelicula where titulo like '" + '%' + titulo + '%' + "'" + ' and ' + 'anio = ' + anio + ' order by ' + columna_orden + ' ' + tipo_orden + ' limit ' + cantidadPorPagina * (pagina - 1) + ',' + cantidadPorPagina;
             }
             
             if(titulo && genero){
-                var sql = "select * from pelicula where titulo like '" + '%' + titulo + '%' + "'" + ' and ' + 'genero_id = ' + genero + ' order by ' + columna_orden + ' ' + tipo_orden;
+                var sql = "select * from pelicula where titulo like '" + '%' + titulo + '%' + "'" + ' and ' + 'genero_id = ' + genero + ' order by ' + columna_orden + ' ' + tipo_orden + ' limit ' + cantidadPorPagina * (pagina - 1) + ',' + cantidadPorPagina;
             }
     
             if(anio && genero){
-                var sql = "select * from pelicula where anio = " + anio + " and " + 'genero_id = ' + genero + ' order by ' + columna_orden + ' ' + tipo_orden;
+                var sql = "select * from pelicula where anio = " + anio + " and " + 'genero_id = ' + genero + ' order by ' + columna_orden + ' ' + tipo_orden + ' limit ' + cantidadPorPagina * (pagina - 1) + ',' + cantidadPorPagina;
             }
         }
         else{
             if(titulo || anio || genero){
                 if(titulo){
-                    var sql = "select * from pelicula where titulo like '" + '%' + titulo + '%' + "'" + ' order by ' + columna_orden + ' ' + tipo_orden;
+                    var sql = "select * from pelicula where titulo like '" + '%' + titulo + '%' + "'" + ' order by ' + columna_orden + ' ' + tipo_orden + ' limit ' + cantidadPorPagina * (pagina - 1) + ',' + cantidadPorPagina;
                 }
                 if(anio){
-                    var sql = "select * from pelicula where anio = " + anio + ' order by ' + columna_orden + ' ' + tipo_orden;
+                    var sql = "select * from pelicula where anio = " + anio + ' order by ' + columna_orden + ' ' + tipo_orden + ' limit ' + cantidadPorPagina * (pagina - 1) + ',' + cantidadPorPagina;
                 }
                 if(genero){
-                    var sql = "select * from pelicula where genero_id = " + genero + ' order by ' + columna_orden + ' ' + tipo_orden;
+                    var sql = "select * from pelicula where genero_id = " + genero + ' order by ' + columna_orden + ' ' + tipo_orden + ' limit ' + cantidadPorPagina * (pagina - 1) + ',' + cantidadPorPagina;
                 }
             }
             else{
