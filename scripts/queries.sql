@@ -18,7 +18,9 @@ select * from pelicula order by anio desc;
 select * from pelicula order by puntuacion desc;
 
 -- filtros individuales
-select * from pelicula where titulo like '%men%' order by titulo asc;
+select count(*) as cantidad from pelicula where titulo like '%m%';
+select * from pelicula where titulo like '%m%' order by titulo asc;
+select * from pelicula where titulo like '%men%' order by titulo;
 select * from pelicula where titulo like '%men%' order by anio desc;
 select * from pelicula where titulo like '%men%' order by puntuacion desc;
 select * from pelicula where anio = 2005 order by titulo asc;
@@ -59,7 +61,7 @@ inner join genero G on P.genero_id = G.id
 where P.anio between 1900 and 2005 and G.nombre = 'Biography' order by titulo;
 
 -- Puntuacion y Cualquiera
-select * from pelicula where puntuacion = 7;
+select * from pelicula where puntuacion = 7 order by titulo;
 -- Puntuacion y Genero
 select P.*, G.nombre as genero from pelicula P 
 inner join genero G on P.genero_id = G.id
@@ -68,7 +70,7 @@ where P.puntuacion = 7 and G.nombre = 'Adventure' order by titulo;
 -- Cualquiera y Genero
 select P.*, G.nombre as genero from pelicula P 
 inner join genero G on P.genero_id = G.id
-where G.nombre = 'Drama' order by P.anio desc;  
+where G.nombre = 'Drama' order by P.titulo;  
 
 -- Cualquiera y Cualquiera
 select * from pelicula;

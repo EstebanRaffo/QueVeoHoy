@@ -39,8 +39,6 @@ function recomendarPeliculas(req, res) {
         }
     }
 
-    // var sql = "select * from pelicula order by anio desc";
-
     con.query(sql, function(error, resultado, fields) {
         
         if (error) {

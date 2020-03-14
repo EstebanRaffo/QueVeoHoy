@@ -124,6 +124,7 @@ function ControladorPeliculas() {
             //la cantidad de paginas va a ser el total de resultados que existen dividido la cantidad de resultados que se
             //van a mostrar por pagina.
             cantidad_paginas = Math.ceil(total / cantidad_por_pagina);
+            
             //se vacia el contenedor de botones de paginacion
             $(".btn-group").empty();
             for (i = 0; i < cantidad_paginas; i++) {
